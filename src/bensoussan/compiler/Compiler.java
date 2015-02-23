@@ -15,7 +15,7 @@ public class Compiler {
 	}
 
 	public String compile() {
-		while (keyboard.hasNext()) {
+		while (keyboard.hasNext() || counter == 255) {
 			String instruction = keyboard.next();
 			switch (instruction) {
 			case "LD":
@@ -29,7 +29,6 @@ public class Compiler {
 					output[counter++] = '0';
 					output[counter++] = info.charAt(0);
 				}
-				keyboard.nextLine();
 				break;
 			case "ST":
 				output[counter++] = '1';
@@ -42,23 +41,18 @@ public class Compiler {
 					output[counter++] = '0';
 					output[counter++] = info.charAt(0);
 				}
-				keyboard.nextLine();
 				break;
 			case "SWP":
 				output[counter++] = '2';
-				keyboard.nextLine();
 				break;
 			case "ADD":
 				output[counter++] = '3';
-				keyboard.nextLine();
 				break;
 			case "INC":
 				output[counter++] = '4';
-				keyboard.nextLine();
 				break;
 			case "DEC":
 				output[counter++] = '5';
-				keyboard.nextLine();
 				break;
 			case "BZ":
 				output[counter++] = '6';
@@ -71,7 +65,6 @@ public class Compiler {
 					output[counter++] = '0';
 					output[counter++] = info.charAt(0);
 				}
-				keyboard.nextLine();
 				break;
 			case "BR":
 				output[counter++] = '7';
@@ -84,16 +77,13 @@ public class Compiler {
 					output[counter++] = '0';
 					output[counter++] = info.charAt(0);
 				}
-				keyboard.nextLine();
 				break;
 			case "STP":
 				output[counter++] = '8';
-				keyboard.nextLine();
-				fill256();
-				return output.toString();
 			case "DATA":
 				int location = Integer.parseInt(keyboard.next(), 16);
-				info = keyboard.next();
+				temp = Integer.parseInt(keyboard.next());
+				info = Integer.toHexString(temp).toUpperCase();
 				if (info.length() > 1) {
 					output[location] = info.charAt(0);
 					output[++location] = info.charAt(1);
@@ -102,10 +92,10 @@ public class Compiler {
 					output[++location] = info.charAt(0);
 				}
 				break;
-			default:
-				keyboard.nextLine();
 			}
+			keyboard.nextLine();
 		}
+		fill256();
 		return output.toString();
 	}
 
