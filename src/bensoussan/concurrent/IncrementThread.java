@@ -1,4 +1,4 @@
-package integer;
+package bensoussan.concurrent;
 
 import java.util.concurrent.CountDownLatch;
 
